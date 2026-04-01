@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>System Breach</title>
+<style>
+body {
+  background: black;
+  color: lime;
+  font-family: monospace;
+  padding: 20px;
+  text-align: center;
+  overflow: hidden;
+}
+#text {
+  white-space: pre-line;
+  font-size: 18px;
+  text-align: left;
+}
+#final {
+  display: none;
+  font-size: 45px;
+  color: red;
+  margin-top: 50px;
+  animation: blink 0.6s infinite;
+}
+@keyframes blink {
+  0% {opacity: 1;}
+  50% {opacity: 0;}
+  100% {opacity: 1;}
+}
+#countdown {
+  font-size: 25px;
+  color: yellow;
+  margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="text"></div>
+<div id="countdown"></div>
+<div id="final">😂 APRIL FOOL 😂</div>
+
+<script>
+let lines = [
+"Connecting to server...",
+"Bypassing security...",
+"Access Granted ✅",
+"Downloading personal data...",
+"Injecting malware...",
+"Camera access granted 📷",
+"Tracking location 📍",
+"",
+"💀 SYSTEM LOCK INITIATED 💀"
+];
+
+let i = 0;
+let textDiv = document.getElementById("text");
+let countdownDiv = document.getElementById("countdown");
+
+function typeLine() {
+  if (i < lines.length) {
+    textDiv.innerHTML += lines[i] + "\n";
+    i++;
+    setTimeout(typeLine, 400);
+  } else {
+    startCountdown();
+  }
+}
+
+function startCountdown(){
+  let time = 5;
+  countdownDiv.innerHTML = "Deleting all data in: " + time;
+
+  let timer = setInterval(()=>{
+    time--;
+    countdownDiv.innerHTML = "Deleting all data in: " + time;
+
+    if(time <= 0){
+      clearInterval(timer);
+      startStorm();
+    }
+  },1000);
+}
+
+function startStorm(){
+  let count = 0;
+
+  let interval = setInterval(()=>{
+    alert("⚠️ SYSTEM ERROR ⚠️");
+
+    count++;
+
+    if(count >= 10){ // only once storm
+      clearInterval(interval);
+      showFinal();
+    }
+
+  },150);
+}
+
+function showFinal(){
+  document.body.style.background = "white";
+  document.body.style.color = "black";
+
+  document.getElementById("text").style.display = "none";
+  document.getElementById("countdown").style.display = "none";
+  document.getElementById("final").style.display = "block";
+
+  // vibration effect (mobile)
+  if(navigator.vibrate){
+    navigator.vibrate([200,100,200]);
+  }
+
+  // voice effect
+  let msg = new SpeechSynthesisUtterance("April Fool!");
+  speechSynthesis.speak(msg);
+}
+
+typeLine();
+</script>
+
+</body>
+</html>
